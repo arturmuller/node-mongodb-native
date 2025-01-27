@@ -125,12 +125,10 @@ async function runUnifiedTest(
 
     trace('satisfiesRequirements');
     const isSomeSuiteRequirementMet =
-      !suiteRequirements.length ||
-      (await isAnyRequirementSatisfied(ctx, suiteRequirements, utilClient));
+      !suiteRequirements.length || (await isAnyRequirementSatisfied(ctx, suiteRequirements));
     const isSomeTestRequirementMet =
       isSomeSuiteRequirementMet &&
-      (!testRequirements.length ||
-        (await isAnyRequirementSatisfied(ctx, testRequirements, utilClient)));
+      (!testRequirements.length || (await isAnyRequirementSatisfied(ctx, testRequirements)));
 
     if (!isSomeTestRequirementMet) {
       return ctx.skip();

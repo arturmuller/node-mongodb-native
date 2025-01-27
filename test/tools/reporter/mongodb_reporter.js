@@ -250,7 +250,7 @@ class MongoDBMochaReporter extends mocha.reporters.Spec {
    */
   fail(test, error) {
     if (REPORT_TO_STDIO) console.log(chalk.red(`⨯ ${test.fullTitle()} -- ${error.message}`));
-    test.error = error;
+    // test.error = error;
   }
 
   /**

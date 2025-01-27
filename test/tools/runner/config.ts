@@ -87,6 +87,7 @@ export class TestConfiguration {
   activeResources: number;
   isSrv: boolean;
   serverlessCredentials: { username: string | undefined; password: string | undefined };
+  shards: { host: string }[];
 
   constructor(
     private uri: string,
@@ -104,6 +105,7 @@ export class TestConfiguration {
     this.topologyType = this.isLoadBalanced ? TopologyType.LoadBalanced : context.topologyType;
     this.buildInfo = context.buildInfo;
     this.serverApi = context.serverApi;
+    this.shards = context.shards;
     this.isSrv = uri.indexOf('mongodb+srv') > -1;
     this.options = {
       hosts,
