@@ -85,6 +85,10 @@ export class GridFSBucket extends TypedEventEmitter<GridFSBucketEvents> {
    */
   static readonly INDEX = 'index' as const;
 
+  private get closeSignal() {
+    return this.s.db.client.closeSignal;
+  }
+
   constructor(db: Db, options?: GridFSBucketOptions) {
     super();
     this.setMaxListeners(0);
@@ -165,7 +169,8 @@ export class GridFSBucket extends TypedEventEmitter<GridFSBucketEvents> {
     if (timeoutMS) {
       timeoutContext = new CSOTTimeoutContext({
         timeoutMS,
-        serverSelectionTimeoutMS: this.s.db.client.s.options.serverSelectionTimeoutMS
+        serverSelectionTimeoutMS: this.s.db.client.s.options.serverSelectionTimeoutMS,
+        closeSignal: this.closeSignal
       });
     }
 
@@ -245,7 +250,8 @@ export class GridFSBucket extends TypedEventEmitter<GridFSBucketEvents> {
     if (timeoutMS) {
       timeoutContext = new CSOTTimeoutContext({
         timeoutMS,
-        serverSelectionTimeoutMS: this.s.db.client.s.options.serverSelectionTimeoutMS
+        serverSelectionTimeoutMS: this.s.db.client.s.options.serverSelectionTimeoutMS,
+        closeSignal: this.closeSignal
       });
     }
 

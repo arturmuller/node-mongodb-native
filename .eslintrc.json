@@ -119,6 +119,14 @@
       {
         "selector": "BinaryExpression[operator=/[=!]==?/] Literal[value='undefined']",
         "message": "Do not strictly check typeof undefined (NOTE: currently this rule only detects the usage of 'undefined' string literal so this could be a misfire)"
+      },
+      {
+        "selector": "CallExpression[callee.name='setTimeout']",
+        "message": "setTimeout must be abortable"
+      },
+      {
+        "selector": "CallExpression[callee.name='clearTimeout']",
+        "message": "clearTimeout must remove abort listener"
       }
     ],
     "@typescript-eslint/no-unused-vars": "error",
