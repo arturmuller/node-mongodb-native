@@ -472,7 +472,12 @@ export class TypedEventEmitter<Events extends EventsDescription> extends EventEm
 }
 
 /** @public */
-export class CancellationToken extends TypedEventEmitter<{ cancel(): void }> {}
+export class CancellationToken extends TypedEventEmitter<{ cancel(): void }> {
+  constructor(...args: any[]) {
+    super(...args);
+    this.on('error', () => null);
+  }
+}
 
 /** @public */
 export type Abortable = {

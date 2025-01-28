@@ -102,6 +102,7 @@ export class Monitor extends TypedEventEmitter<MonitorEvents> {
 
   constructor(server: Server, options: MonitorOptions) {
     super();
+    this.on('error', () => null);
 
     this.server = server;
     this.connection = null;

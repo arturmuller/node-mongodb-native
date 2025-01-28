@@ -267,6 +267,7 @@ export abstract class AbstractCursor<
     options: AbstractCursorOptions & Abortable = {}
   ) {
     super();
+    this.on('error', () => null);
 
     if (!client.s.isMongoClient) {
       throw new MongoRuntimeError('Cursor must be constructed with MongoClient');

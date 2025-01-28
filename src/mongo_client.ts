@@ -384,6 +384,7 @@ export class MongoClient extends TypedEventEmitter<MongoClientEvents> implements
 
   constructor(url: string, options?: MongoClientOptions) {
     super();
+    this.on('error', () => null);
 
     this.options = parseOptions(url, this, options);
 

@@ -200,6 +200,7 @@ export class ConnectionPool extends TypedEventEmitter<ConnectionPoolEvents> {
 
   constructor(server: Server, options: ConnectionPoolOptions) {
     super();
+    this.on('error', () => null);
 
     this.options = Object.freeze({
       connectionType: Connection,

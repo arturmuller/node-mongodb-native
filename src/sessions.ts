@@ -161,6 +161,7 @@ export class ClientSession
     clientOptions: MongoOptions
   ) {
     super();
+    this.on('error', () => null);
 
     if (client == null) {
       // TODO(NODE-3483)

@@ -142,6 +142,7 @@ export class Server extends TypedEventEmitter<ServerEvents> {
    */
   constructor(topology: Topology, description: ServerDescription, options: ServerOptions) {
     super();
+    this.on('error', () => null);
 
     this.serverApi = options.serverApi;
 

@@ -630,6 +630,11 @@ export class ChangeStream<
     options: ChangeStreamOptions = {}
   ) {
     super();
+    const ctorCallSite = new Error('ChangeStream must add an error listener synchronously');
+    ctorCallSite.stack;
+
+    const squishErrorListenerRequirement = () => null;
+    this.on('error', squishErrorListenerRequirement);
 
     this.pipeline = pipeline;
     this.options = { ...options };
@@ -667,7 +672,11 @@ export class ChangeStream<
     // Listen for any `change` listeners being added to ChangeStream
     this.on('newListener', eventName => {
       if (eventName === 'change' && this.cursor && this.listenerCount('change') === 0) {
+        this.off('error', squishErrorListenerRequirement);
         this._streamEvents(this.cursor);
+        process.nextTick(() => {
+          if (this.listenerCount('error') === 0) throw ctorCallSite;
+        });
       }
     });
 
