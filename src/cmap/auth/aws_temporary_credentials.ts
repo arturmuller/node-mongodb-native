@@ -21,7 +21,7 @@ export interface AWSTempCredentials {
   Expiration?: Date;
 }
 
-/** @internal */
+/** @public **/
 export type AWSCredentialProvider = () => Promise<AWSCredentials>;
 
 /**
