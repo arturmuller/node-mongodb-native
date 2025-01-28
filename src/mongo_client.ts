@@ -21,7 +21,7 @@ import { MONGO_CLIENT_EVENTS } from './constants';
 import { type AbstractCursor } from './cursor/abstract_cursor';
 import { Db, type DbOptions } from './db';
 import type { Encrypter } from './encrypter';
-import { MongoInvalidArgumentError } from './error';
+import { MongoInvalidArgumentError, MongoRuntimeError } from './error';
 import { MongoClientAuthProviders } from './mongo_client_auth_providers';
 import {
   type LogComponentSeveritiesClientOptions,
@@ -538,6 +538,10 @@ export class MongoClient extends TypedEventEmitter<MongoClientEvents> implements
    * @see docs.mongodb.org/manual/reference/connection-string/
    */
   async connect(): Promise<this> {
+    if (this.closeLock) {
+      throw new MongoRuntimeError('Client cannot be connected while close() is in progress.');
+    }
+
     if (this.connectionLock) {
       return await this.connectionLock;
     }

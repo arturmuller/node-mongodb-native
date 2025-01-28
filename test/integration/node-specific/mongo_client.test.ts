@@ -762,6 +762,7 @@ describe('class MongoClient', function () {
 
     context('concurrent calls', () => {
       let topologyClosedSpy;
+
       beforeEach(async function () {
         await client.connect();
         const coll = client.db('db').collection('concurrentCalls');
@@ -820,6 +821,8 @@ describe('class MongoClient', function () {
         await client.close();
 
         expect(client.topology).to.be.undefined;
+      });
+    });
 
     describe('active cursors', function () {
       let collection: Collection<{ _id: number }>;
